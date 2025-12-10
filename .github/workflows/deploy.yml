@@ -1,0 +1,13 @@
+name: Deploy Frontend
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v5
+            - run: docker build -t frontend-test-image -f dockerfile.dev . 
+            - run: docker run -e CI=true frontend-test-image npm test 
